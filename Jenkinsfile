@@ -41,14 +41,14 @@ node {
         docker.build(tagName)
         sh 'docker login 39.99.224.184:8082 -u admin -p AKCp8hyiwBrktjxqu8yUzPe1CTA6agQnVCT6rdMocDJhMK8Z831raDuWGPuhaxftfkWTjpzTf'
         sh 'docker push 39.99.224.184:8082/docker-webinar-virtual/jfrog-cloud-demo:latest'
-        // sh 'docker rmi docker-local.artifactory.cloud.demo/jfrog-cloud-demo:latest'
+        sh 'docker rmi 39.99.224.184:8082/docker-webinar-virtual/jfrog-cloud-demo:latest'
         // sh 'docker logout docker-local.artifactory.cloud.demo'
     }
     stage('Test') {
         // Smoke test
         docker.image(tagName).withRun('-p 8181:8080') { c->
             sleep 5
-            //sh 'curl "http://127.0.0.1:8181"'
+            sh 'curl "http://127.0.0.1:8181"'
         }
     }
     stage('Package Helm Chart'){
